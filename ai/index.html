@@ -3,8 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>名医堂AI健康顾问 - 在线问诊</title>
-    <link rel="stylesheet" href="theme-mingyitang.css">
+    <title>CDP屏幕投射</title>
     <style>
         * {
             margin: 0;
@@ -52,7 +51,6 @@
             font-weight: 700;
             color: #2563eb;
         }
-        
 
         .status-badge {
             padding: 0.25rem 0.75rem;
@@ -103,6 +101,8 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
         }
         
         .card-title {
@@ -212,128 +212,6 @@
             box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
         }
 
-        .service-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1rem;
-        }
-        
-        .service-card {
-            background: white;
-            border-radius: 1rem;
-            padding: 1.5rem;
-            border: 2px solid #e2e8f0;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-align: center;
-        }
-        
-        .service-card:hover {
-            border-color: #2563eb;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.1);
-        }
-        
-        .service-card.active {
-            border-color: #2563eb;
-            background: #f8fafc;
-        }
-        
-        .service-card.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none !important;
-        }
-        
-        
-        .service-title {
-            font-size: 1.125rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: #1e293b;
-        }
-        
-        .service-status {
-            font-size: 0.875rem;
-            color: #64748b;
-            margin-bottom: 0.75rem;
-        }
-        
-        .service-status.running {
-            color: #10b981;
-            font-weight: 500;
-        }
-        
-        /* 进度条样式 */
-        .progress-container {
-            margin-top: 1rem;
-            padding: 1rem;
-            background: #f8fafc;
-            border-radius: 0.75rem;
-            border: 1px solid #e2e8f0;
-        }
-        
-        .progress-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.5rem;
-            font-size: 0.875rem;
-        }
-        
-        .progress-text {
-            color: #374151;
-            font-weight: 500;
-        }
-        
-        .progress-percent {
-            color: #10b981;
-            font-weight: 600;
-        }
-        
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: #e5e7eb;
-            border-radius: 4px;
-            overflow: hidden;
-            margin-bottom: 0.5rem;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: #10b981;
-            border-radius: 4px;
-            transition: width 0.3s ease;
-            width: 0%;
-        }
-        
-        .progress-details {
-            font-size: 0.75rem;
-            color: #64748b;
-            text-align: left;
-            max-height: 60px;
-            overflow-y: auto;
-        }
-        
-        .tips {
-            background: #fef3c7;
-            border: 1px solid #f59e0b;
-            border-radius: 0.75rem;
-            padding: 1rem;
-            margin-top: 1rem;
-            display: flex;
-            align-items: flex-start;
-            gap: 0.75rem;
-        }
-        
-        
-        .tips-text {
-            font-size: 0.875rem;
-            color: #92400e;
-            line-height: 1.5;
-        }
-
         .footer {
             background: white;
             border-top: 1px solid #e2e8f0;
@@ -344,17 +222,9 @@
         .footer-content {
             max-width: 1200px;
             margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            text-align: center;
             font-size: 0.875rem;
             color: #64748b;
-        }
-        
-        .footer-note {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
         /* 响应式设计 */
@@ -372,22 +242,12 @@
                 padding: 1rem;
             }
             
-            .service-grid {
-                grid-template-columns: 1fr;
-            }
-            
             .button-group {
                 flex-direction: column;
             }
             
             .btn {
                 justify-content: center;
-            }
-            
-            .footer-content {
-                flex-direction: column;
-                gap: 0.5rem;
-                text-align: center;
             }
         }
         
@@ -400,10 +260,6 @@
                 padding: 1rem;
                 margin-bottom: 1rem;
             }
-            
-            .service-card {
-                padding: 1rem;
-            }
         }
     </style>
 </head>
@@ -412,7 +268,7 @@
         <header class="header">
             <div class="header-content">
                 <div class="logo">
-                    <span>名医堂AI健康顾问</span>
+                    <span>CDP屏幕投射</span>
                 </div>
                 <div id="connection-status" class="status-badge status-disconnected">
                     <div class="status-dot"></div>
@@ -426,7 +282,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="card-title">
-                        <span>AI问诊实时监控</span>
+                        <span>屏幕实时监控</span>
                     </div>
                     <div id="frame-info" class="card-subtitle">等待连接...</div>
                     <div id="cdp-status" class="card-subtitle" style="color: #ef4444;">CDP: 未连接</div>
@@ -444,57 +300,11 @@
                     </button>
                 </div>
             </div>
-
-            <!-- 服务控制 -->
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-title">
-                        <span>服务控制台</span>
-                    </div>
-                </div>
-                <div class="service-grid">
-                    <div id="service-btn" class="service-card">
-                        <div class="service-title">AI中医问诊</div>
-                        <div class="service-status">未启动</div>
-                    </div>
-                    <div id="analysis-btn" class="service-card">
-                        <div class="service-title">数据分析</div>
-                        <div class="service-status">未启动</div>
-                        <!-- 进度条容器 -->
-                        <div id="analysis-progress" class="progress-container" style="display: none;">
-                            <div class="progress-info">
-                                <span id="progress-text">正在分析数据...</span>
-                                <span id="progress-percent">0%</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div id="progress-fill" class="progress-fill"></div>
-                            </div>
-                            <div id="progress-details" class="progress-details"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="tips">
-                    <div class="tips-text">
-                        <strong>温馨提示：</strong>AI问诊和数据分析不能同时运行，请先停止当前服务再启动新服务
-                    </div>
-                </div>
-            </div>
         </main>
 
         <footer class="footer">
             <div class="footer-content">
-                <div>名医堂 © 2025 上海名医堂中医科技有限公司</div>
-                <div class="footer-note">
-                    <span>专业版，仅对预约用户开放</span>
-                    <span style="margin-left: 1rem;">•</span>
-                    <a href="http://emagen.323424.xyz/database/admin.html#statistics" 
-                       target="_blank" 
-                       style="margin-left: 0.5rem; color: #2563eb; text-decoration: none; font-weight: 500;"
-                       onmouseover="this.style.textDecoration='underline'"
-                       onmouseout="this.style.textDecoration='none'">
-                        📊 数据统计
-                    </a>
-                </div>
+                <div>CDP View © 2025</div>
             </div>
         </footer>
     </div>
@@ -505,95 +315,9 @@
         let socket = null;
         let isStreaming = false;
         let frameCount = 0;
-        let autoStartScreenShare = localStorage.getItem('autoStartScreenShare') !== 'false'; // 默认启用
-        let serviceStatus = {
-            customerService: { running: false },
-            analysis: { running: false }
-        };
         let cdpStatus = { connected: false, message: '未连接' };
         
-        // 进度条状态
-        let progressState = {
-            isActive: false,
-            total: 0,
-            current: 0,
-            currentContact: '',
-            totalContacts: 0
-        };
-        
-        // 更新进度条
-        function updateProgress(current, total, details = '') {
-            const progressContainer = document.getElementById('analysis-progress');
-            const progressText = document.getElementById('progress-text');
-            const progressPercent = document.getElementById('progress-percent');
-            const progressFill = document.getElementById('progress-fill');
-            const progressDetails = document.getElementById('progress-details');
-            
-            if (!progressContainer) return;
-            
-            progressState.current = current;
-            progressState.total = total;
-            
-            const percentage = total > 0 ? Math.round((current / total) * 100) : 0;
-            
-            // 根据状态显示不同的文本
-            if (total === 0) {
-                progressText.textContent = '正在初始化...';
-                progressPercent.textContent = '0%';
-            } else {
-                progressText.textContent = `正在分析数据 (${current}/${total})`;
-                progressPercent.textContent = `${percentage}%`;
-            }
-            
-            progressFill.style.width = `${percentage}%`;
-            
-            if (details) {
-                progressDetails.textContent = details;
-            }
-            
-            // 显示进度条
-            if (!progressState.isActive) {
-                progressContainer.style.display = 'block';
-                progressState.isActive = true;
-            }
-        }
-        
-        // 隐藏进度条
-        function hideProgress() {
-            const progressContainer = document.getElementById('analysis-progress');
-            if (progressContainer) {
-                progressContainer.style.display = 'none';
-                progressState.isActive = false;
-                progressState.current = 0;
-                progressState.total = 0;
-            }
-        }
-        
-        // 解析进度信息
-        function parseProgressFromLog(message) {
-            // 匹配格式: ✅ [1/30] vivian101 - 大众点评 - 10条消息 (10条有时间戳) - 无订单
-            const progressMatch = message.match(/\[(\d+)\/(\d+)\]\s+(.+?)\s+-\s+(.+?)\s+-\s+(.+)/);
-            if (progressMatch) {
-                const current = parseInt(progressMatch[1]);
-                const total = parseInt(progressMatch[2]);
-                const contactName = progressMatch[3];
-                const platform = progressMatch[4];
-                const details = `${contactName} - ${platform}`;
-                return { current, total, details };
-            }
-            
-            // 匹配总数信息: 📋 当前页面有 50 个联系人
-            const totalMatch = message.match(/📋 当前页面有\s+(\d+)\s+个联系人/);
-            if (totalMatch) {
-                const totalContacts = parseInt(totalMatch[1]);
-                progressState.totalContacts = totalContacts;
-                return { totalContacts };
-            }
-            
-            return null;
-        }
-        
-        // 显示通知消息（保留但仅用于错误信息）
+        // 显示通知消息
         function showNotification(message, type = 'info') {
             const notification = document.createElement('div');
             notification.style.cssText = `
@@ -645,7 +369,7 @@
         ctx.fillStyle = '#999';
         ctx.font = '24px Arial';
         ctx.textAlign = 'center';
-        ctx.fillText('点击"开始屏幕分享"查看AI客服操作画面', canvas.width / 2, canvas.height / 2);
+        ctx.fillText('点击"开始屏幕分享"查看实时画面', canvas.width / 2, canvas.height / 2);
 
         // 连接WebSocket
         function connectWebSocket() {
@@ -656,9 +380,6 @@
                 const statusEl = document.getElementById('connection-status');
                 statusEl.className = 'status-badge status-connected';
                 statusEl.innerHTML = '<div class="status-dot"></div><span>已连接</span>';
-                
-                // 测试WebSocket连接
-                socket.emit('test-connection', { test: 'connection test' });
             });
 
             socket.on('disconnect', () => {
@@ -668,40 +389,10 @@
                 statusEl.innerHTML = '<div class="status-dot"></div><span>未连接</span>';
             });
 
-            socket.on('status-update', (status) => {
-                console.log('状态更新:', status);
-                const wasRunning = serviceStatus.customerService.running;
-                const isRunning = status.customerService.running;
-                
-                serviceStatus = status;
-                updateControlPanel();
-                
-                // 只在自动模式下控制屏幕共享
-                if (autoStartScreenShare) {
-                    if (!wasRunning && isRunning) {
-                        // AI客服刚启动，自动开始屏幕共享
-                        setTimeout(() => {
-                            if (!isStreaming) {
-                                startScreenShare();
-                            }
-                        }, 3000); // 延迟3秒等待浏览器启动
-                    } else if (wasRunning && !isRunning) {
-                        // AI客服停止，自动停止屏幕共享
-                        if (isStreaming) {
-                            stopScreenShare();
-                        }
-                    }
-                }
-            });
-
             socket.on('screen-frame', (frameData) => {
                 drawFrame(frameData);
                 frameCount++;
                 document.getElementById('frame-info').textContent = `帧数: ${frameCount}`;
-            });
-
-            socket.on('service-error', ({ type, error }) => {
-                alert(`${type}服务错误: ${error}`);
             });
 
             socket.on('cdp-status', (status) => {
@@ -712,69 +403,7 @@
             // 监听CDP错误
             socket.on('cdp-error', (error) => {
                 console.error('CDP错误:', error);
-                alert('CDP错误: ' + error.message);
-            });
-            
-            // 监听测试响应
-            socket.on('test-response', (data) => {
-                console.log('✅ 测试响应:', data);
-            });
-            
-            // 监听服务日志 - 用于更新进度条
-            socket.on('service-log', (logData) => {
-                console.log('📝 服务日志:', logData);
-                
-                // 仅处理分析服务的日志
-                if (logData.type === 'analysis') {
-                    const progressInfo = parseProgressFromLog(logData.message);
-                    
-                    if (progressInfo) {
-                        if (progressInfo.current !== undefined && progressInfo.total !== undefined) {
-                            // 更新进度条
-                            updateProgress(progressInfo.current, progressInfo.total, progressInfo.details);
-                        } else if (progressInfo.totalContacts !== undefined) {
-                            // 记录总联系人数，但不更新进度条
-                            progressState.totalContacts = progressInfo.totalContacts;
-                        }
-                    }
-                }
-            });
-            
-            // 监听报告完成事件 - 自动下载
-            socket.on('report-ready', (data) => {
-                console.log('📄 报告已生成:', data);
-                
-                // 隐藏进度条
-                hideProgress();
-                
-                // 自动下载HTML报告
-                const link = document.createElement('a');
-                link.href = data.downloadUrl;
-                link.download = data.filename;
-                link.style.display = 'none';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                
-                console.log('📥 HTML报告自动下载已触发:', data.filename);
-            });
-            
-            // 监听JPG版本完成事件 - 自动下载
-            socket.on('jpg-ready', (data) => {
-                console.log('🖼️ JPG版本已生成:', data);
-                
-                // 延迟一秒后下载JPG，避免与HTML下载冲突
-                setTimeout(() => {
-                    const link = document.createElement('a');
-                    link.href = data.downloadUrl;
-                    link.download = data.filename;
-                    link.style.display = 'none';
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    
-                    console.log('📥 JPG报告自动下载已触发:', data.filename);
-                }, 1000);
+                showNotification('CDP错误: ' + error.message, 'error');
             });
         }
 
@@ -839,53 +468,12 @@
             img.src = `data:image/${format};base64,${frameData.data}`;
         }
 
-        // 更新控制面板
-        function updateControlPanel() {
-            const serviceBtn = document.getElementById('service-btn');
-            const analysisBtn = document.getElementById('analysis-btn');
-            const serviceStatusEl = serviceBtn.querySelector('.service-status');
-            const analysisStatusEl = analysisBtn.querySelector('.service-status');
-
-            if (serviceStatus.customerService.running) {
-                serviceBtn.classList.add('active');
-                serviceStatusEl.textContent = '运行中';
-                serviceStatusEl.classList.add('running');
-                serviceStatusEl.style.color = '';  // 清除内联样式，使用CSS类
-                analysisBtn.classList.add('disabled');
-            } else {
-                serviceBtn.classList.remove('active');
-                serviceStatusEl.textContent = '未启动';
-                serviceStatusEl.classList.remove('running');
-                serviceStatusEl.style.color = '';  // 清除内联样式
-                analysisBtn.classList.remove('disabled');
-            }
-
-            if (serviceStatus.analysis.running) {
-                analysisBtn.classList.add('active');
-                analysisStatusEl.textContent = '分析中 📈';
-                analysisStatusEl.classList.add('running');
-                analysisStatusEl.style.color = '';  // 清除内联样式，使用CSS类
-                serviceBtn.classList.add('disabled');
-            } else {
-                analysisBtn.classList.remove('active');
-                analysisStatusEl.textContent = '未启动';
-                analysisStatusEl.classList.remove('running');
-                analysisStatusEl.style.color = '';  // 清除内联样式
-                serviceBtn.classList.remove('disabled');
-                
-                // 分析服务停止时隐藏进度条
-                hideProgress();
-            }
-        }
-
         // 更新CDP状态
         function updateCDPStatus() {
             const cdpStatusEl = document.getElementById('cdp-status');
             if (cdpStatus.connected) {
                 cdpStatusEl.style.color = '#10b981';
-                // 显示服务类型信息
-                const serviceType = cdpStatus.serviceType || '未知服务';
-                cdpStatusEl.textContent = `CDP: 已连接 (${serviceType})`;
+                cdpStatusEl.textContent = `CDP: 已连接`;
             } else {
                 cdpStatusEl.style.color = '#ef4444';
                 cdpStatusEl.textContent = `CDP: ${cdpStatus.message || '未连接'}`;
@@ -909,21 +497,16 @@
         function startScreenShare() {
             socket.emit('start-screen-share');
             isStreaming = true;
-            autoStartScreenShare = true;
-            localStorage.setItem('autoStartScreenShare', 'true');
             const shareBtn = document.getElementById('share-btn');
             shareBtn.innerHTML = '<span>停止分享</span>';
             shareBtn.className = 'btn btn-danger';
             updateClickStatus();
-            console.log('开始屏幕分享，已设置为自动模式');
         }
 
         // 停止屏幕分享
         function stopScreenShare() {
             socket.emit('stop-screen-share');
             isStreaming = false;
-            autoStartScreenShare = false;
-            localStorage.setItem('autoStartScreenShare', 'false');
             const shareBtn = document.getElementById('share-btn');
             shareBtn.innerHTML = '<span>开始屏幕分享</span>';
             shareBtn.className = 'btn btn-primary';
@@ -938,9 +521,7 @@
             ctx.fillStyle = '#999';
             ctx.font = '24px Arial';
             ctx.textAlign = 'center';
-            ctx.fillText('点击"开始屏幕分享"查看AI客服操作画面', canvas.width / 2, canvas.height / 2);
-            
-            console.log('停止屏幕分享，已关闭自动模式');
+            ctx.fillText('点击"开始屏幕分享"查看实时画面', canvas.width / 2, canvas.height / 2);
         }
 
         // 屏幕分享按钮
@@ -963,7 +544,7 @@
         
         // 点击事件防抖
         let lastClickTime = 0;
-        const clickDebounceMs = 100; // 100ms防抖，优化响应速度
+        const clickDebounceMs = 100; // 100ms防抖
         
         // Canvas点击事件处理
         canvas.addEventListener('click', function(event) {
@@ -973,12 +554,6 @@
                 return;
             }
             lastClickTime = now;
-            
-            console.log('🖱️ Canvas点击事件触发', { 
-                x: event.clientX, 
-                y: event.clientY,
-                target: event.target.id
-            });
             
             // 检查是否有有效的绘制参数和CDP连接
             if (!currentDrawParams.isValid || !cdpStatus.connected || !isStreaming) {
@@ -1006,12 +581,6 @@
             // 转换为相对于绘制区域的坐标
             const relativeX = (canvasX - currentDrawParams.offsetX) / currentDrawParams.drawWidth;
             const relativeY = (canvasY - currentDrawParams.offsetY) / currentDrawParams.drawHeight;
-            
-            console.log('发送点击事件:', {
-                canvas: { x: Math.round(canvasX), y: Math.round(canvasY) },
-                relative: { x: relativeX.toFixed(3), y: relativeY.toFixed(3) },
-                drawParams: currentDrawParams
-            });
             
             // 发送点击事件到服务器
             if (!socket.connected) {
@@ -1053,117 +622,8 @@
             }, 600);
         }
 
-        // 启动客服
-        document.getElementById('service-btn').onclick = async function() {
-            const btn = this;
-            const statusEl = btn.querySelector('.service-status');
-            
-            if (serviceStatus.customerService.running) {
-                // 立即显示停止中状态
-                statusEl.textContent = '停止中...';
-                statusEl.style.color = '#f59e0b';
-                btn.style.pointerEvents = 'none';
-                
-                const response = await fetch('/api/service/stop', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ type: 'customer-service' })
-                });
-                
-                // 恢复按钮状态
-                btn.style.pointerEvents = 'auto';
-                
-            } else if (!serviceStatus.analysis.running) {
-                // 立即显示启动中状态
-                statusEl.textContent = '启动中...';
-                statusEl.style.color = '#f59e0b';
-                btn.style.pointerEvents = 'none';
-                
-                const response = await fetch('/api/service/start', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ maxContacts: 3 })
-                });
-                
-                const result = await response.json();
-                if (!result.success) {
-                    alert(result.error || '启动失败');
-                    // 恢复未启动状态
-                    statusEl.textContent = '未启动';
-                    statusEl.style.color = '#64748b';
-                }
-                
-                // 恢复按钮状态
-                btn.style.pointerEvents = 'auto';
-            }
-        };
-
-        // 启动分析
-        document.getElementById('analysis-btn').onclick = async function() {
-            const btn = this;
-            const statusEl = btn.querySelector('.service-status');
-            
-            if (serviceStatus.analysis.running) {
-                // 立即显示停止中状态
-                statusEl.textContent = '停止中...';
-                statusEl.style.color = '#f59e0b';
-                btn.style.pointerEvents = 'none';
-                
-                const response = await fetch('/api/service/stop', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ type: 'analysis' })
-                });
-                
-                // 停止分析服务时隐藏进度条
-                hideProgress();
-                
-                // 恢复按钮状态
-                btn.style.pointerEvents = 'auto';
-                
-            } else if (!serviceStatus.customerService.running) {
-                // 立即显示启动中状态
-                statusEl.textContent = '启动中...';
-                statusEl.style.color = '#f59e0b';
-                btn.style.pointerEvents = 'none';
-                
-                const response = await fetch('/api/analysis/start', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' }
-                });
-                
-                const result = await response.json();
-                if (!result.success) {
-                    alert(result.error || '启动失败');
-                    // 恢复未启动状态
-                    statusEl.textContent = '未启动';
-                    statusEl.style.color = '#64748b';
-                } else {
-                    // 启动成功，显示进度条初始状态
-                    updateProgress(0, 0, '正在初始化...');
-                }
-                
-                // 恢复按钮状态
-                btn.style.pointerEvents = 'auto';
-            }
-        };
-
         // 初始化
         connectWebSocket();
-        
-        // 如果开启了自动模式，设置按钮状态并在AI客服运行时自动开始
-        if (autoStartScreenShare) {
-            console.log('自动屏幕分享模式已启用');
-            localStorage.setItem('autoStartScreenShare', 'true');
-            
-            // 延迟检查AI客服状态并自动开始屏幕分享
-            setTimeout(() => {
-                if (serviceStatus.customerService.running && !isStreaming) {
-                    console.log('AI客服已运行，自动开始屏幕分享');
-                    startScreenShare();
-                }
-            }, 3000);
-        }
     </script>
 </body>
 </html>

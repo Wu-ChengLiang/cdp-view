@@ -13,8 +13,6 @@ const puppeteer = require('puppeteer');
 const axios = require('axios');
 const redis = require('redis');
 const { SOCKET_CONFIG, CDP_CONFIG, TIMEOUTS } = require('./lib/constants');
-const { ResourceManager } = require('./lib/resource-manager');
-const RetryManager = require('./lib/retry-manager');
 const CDPManager = require('./lib/CDPManager');
 
 class CustomerServiceServer {
@@ -45,8 +43,6 @@ class CustomerServiceServer {
         // 进程管理
         this.processes = new Map();
         this.processManager = new ProcessManager();
-        this.resourceManager = new ResourceManager(console);
-        this.retryManager = new RetryManager({ logger: console });
         this.processStatus = {
             customerService: { running: false, pid: null },
             analysis: { running: false, pid: null }
